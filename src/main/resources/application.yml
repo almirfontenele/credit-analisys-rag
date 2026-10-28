@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: credit-analysis-rag
+  datasource:
+    url: jdbc:postgresql://localhost:5432/credit_analysis
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+  ai:
+    openai:
+      base-url: https://generativelanguage.googleapis.com/v1beta/openai
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        options:
+          model: gemini-3.5-flash-lite
+      embedding:
+        options:
+          model: gemini-embedding-001
+          dimensions: 1536
+    vectorstore:
+      pgvector:
+        dimensions: 1536
+        distance-type: cosine_distance
+        index-type: HNSW
+        initialize-schema: true
+server:
+  port: 8080
